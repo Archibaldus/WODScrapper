@@ -17,18 +17,22 @@ rp(url)
         // console.log($('.wod-date', html).text());
         // console.log($('.wod-info', html).text());
         htmlOP = ($('.col-md-6', html).html());
-        console.log(typeof $('p', htmlOP).text());
+ 
         htmlOPString = $('p', htmlOP).text();
         console.log(htmlOPString.split("\n")); // work!
 
         // todays Date
-        const today = new Date();
-        const dd = String(today.getDate()).padStart(2, '0');
-        const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-        const yyyy = today.getFullYear();
-        todaysDate = dd + '/' + mm + '/' + yyyy;
+        function todaysDate() {
+            const today = new Date();
+            const dd = String(today.getDate()).padStart(2, '0');
+            const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+            const yyyy = today.getFullYear();
+            return todaysDateString = dd + '/' + mm + '/' + yyyy;
+        }
+        
 
-        // write htmlOP in DB
+
+        // Database Part
         let db = new sqlite.Database('./db/workouts.db', (err) => {
             if (err) {
                 return console.error(err.message);
@@ -36,25 +40,31 @@ rp(url)
             console.log('Connected to the workouts database');
         });
 
+        // insert row into the comptrain table function
+        function insertRow() {
+            db.run(
+                'INSERT INTO comptrain VALUES(?, ?)', [todaysDate(), htmlOPString], (err) => {
+                    if (err) {
+                        return console.log(err.message);
+                    }
+                    console.log('Row was added to the table');
+                }
+            );
+        }
+
         // create table if not exists
         db.run(
-            'CREATE TABLE [IF NOT EXISTS] comptrain (date TEXT, workout TEXT)', (err) => {
+            'CREATE TABLE IF NOT EXISTS comptrain (date TEXT, workout TEXT)', (err) => {
                 if (err) {
                     return console.log(err.message);
                 }
                 console.log("Table successfuly opened or created");
-            }
-            );
-        
-        // insert row into the ComptrainTable
-        db.run(
-            'INSERT INTO comptrain VALUES(?, ?)', [todaysDate, htmlOPString], (err) => {
-                if (err) {
-                    return console.log(err.message);
-                }
-                console.log('Row was added to the table');
+                insertRow();
             }
         );
+        
+
+        
 
         // close DB connection
         db.close((err) => {
