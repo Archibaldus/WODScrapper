@@ -40,6 +40,20 @@ rp(url)
             console.log('Connected to the workouts database');
         });
 
+        // create Table function
+        function createTable() {
+            db.run(
+                'CREATE TABLE IF NOT EXISTS comptrain (date TEXT, workout TEXT)', (err) => {
+                    if (err) {
+                        return console.log(err.message);
+                    }
+                    console.log("Table successfuly opened or created");
+                    // first it has to be checked if a row with todaysDate is already in the DB
+                    insertRow();
+                }
+            );
+        }
+
         // insert row into the comptrain table function
         function insertRow() {
             db.run(
@@ -52,16 +66,9 @@ rp(url)
             );
         }
 
-        // create table if not exists
-        db.run(
-            'CREATE TABLE IF NOT EXISTS comptrain (date TEXT, workout TEXT)', (err) => {
-                if (err) {
-                    return console.log(err.message);
-                }
-                console.log("Table successfuly opened or created");
-                insertRow();
-            }
-        );
+        // run creating and inserting
+        createTable();
+
         
 
         
