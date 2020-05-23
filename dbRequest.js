@@ -8,8 +8,10 @@ let db = new sqlite.Database('./db/workouts.db', (err) => {
     console.log("connected to the workouts db");
 })
 
+// SELECT all rows
 let sql = 'SELECT * FROM comptrain';
 
+// print to the console
 db.all(sql, [], (err, rows) => {
     if (err) {
         throw err;
@@ -18,3 +20,6 @@ db.all(sql, [], (err, rows) => {
         console.log(row);
     })
 })
+
+// close the db connection
+db.close();
