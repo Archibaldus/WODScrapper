@@ -48,9 +48,14 @@ rp(url)
                         return console.log(err.message);
                     }
                     console.log("Table successfuly opened or created");
-                    if (todaysDate() != checkDate() ){
-                        insertRow();
-                    }
+
+                    checkDate((rowDate) => {
+                        if (todaysDate() != rowDate ) {
+                            console.log(`Today: ${todaysDate()}`);
+                            console.log(`Last Date in DB: ${rowDate}`);
+                            // insertRow();
+                        }
+                    });
                 }
             );
         }
@@ -68,7 +73,7 @@ rp(url)
         }
 
         // check if workout for today is already stored in the db
-        function checkDate() {
+        function checkDate(callback) {
 
             // get last entry
             let sql = 'SELECT date FROM comptrain ORDER BY date DESC LIMIT 1'
@@ -76,8 +81,9 @@ rp(url)
                 if (err) {
                     return console.error(err.message);
                 }
-                return row.date
-            })
+                const rowDate = row.date;
+                callback(rowDate);
+            });
         }
 
         // run creating and inserting
