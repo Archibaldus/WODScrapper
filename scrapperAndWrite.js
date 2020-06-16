@@ -53,7 +53,9 @@ rp(url)
                         if (todaysDate() != rowDate ) {
                             console.log(`Today: ${todaysDate()}`);
                             console.log(`Last Date in DB: ${rowDate}`);
-                            // insertRow();
+                            insertRow();
+                        } else {
+                            console.log('Workout for today is already in the database :)');
                         }
                     });
                 }
@@ -76,7 +78,7 @@ rp(url)
         function checkDate(callback) {
 
             // get last entry
-            let sql = 'SELECT date FROM comptrain ORDER BY date DESC LIMIT 1'
+            let sql = 'SELECT date FROM comptrain ORDER BY rowid DESC LIMIT 1'
             db.get(sql, [], (err, row) => {
                 if (err) {
                     return console.error(err.message);
