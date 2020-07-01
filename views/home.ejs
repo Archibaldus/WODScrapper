@@ -8,6 +8,19 @@
 </head>
 <body>
     <h1>Daily Workouts</h1>
+
+    <div class="main-content">
+        <% wodDates.forEach((element, index) => { %>
+            <% let wod = myWods[index] %> 
+            <% wod = wod.replace(/(\r\n|\n|\r)/gm, '<br>') %> 
+            <div>
+                <p><%= element %></p>
+                <div><%- wod %> </div>
+                <br>
+                <hr>
+            </div>  
+        <% }); %>
+    </div>
     
 </body>
 </html>

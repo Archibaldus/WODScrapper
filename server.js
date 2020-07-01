@@ -41,20 +41,21 @@ function selectEntries (cb) {
 
 
 function HTMLFile () {
-    app.get('/', (req, res) => {
-        res.render("home.ejs");
-    });
-    //             selectEntries( (listOfWODs) => {
-    //                 listOfWODs.forEach((obj) => { 
-    //                      data += `<div>${obj.date} - ${obj.workout}</div>`.replace(/(\r\n|\n|\r)/gm, '<br>');
-    //              })
-    //             res.send(data);
-    //          } );
+    wodDates = [];
+    myWods = [];
+    selectEntries((listOfWODs) => {
+        listOfWODs.forEach((obj) => {
+            wodDates.push(obj.date);
+            myWods.push(obj.workout);
+        })
+    })
 
-    //         }
-    //     })
-    //     app.use(express.static('public'));
-    // })
+    app.get('/', (req, res) => {
+        res.render("home.ejs", {myWods: myWods,
+        wodDates: wodDates});
+    });
+
+
 
 
     // Start the server
