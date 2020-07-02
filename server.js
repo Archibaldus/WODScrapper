@@ -6,6 +6,8 @@ const sqlite = require('sqlite3').verbose();
 const express = require('express');
 const app = express();
 const port = 8000;
+app.set('views', __dirname + '/views');
+app.use(express.static(__dirname + '/public'))
 
 
  
