@@ -1,3 +1,44 @@
+:root{
+    --main-heading: #2B2118;
+    --second-red: #6f1a07;
+    --third-gray: #b3b6b7;
+    --light-background: #f7f3e3;
+    --camel-highligt: #af9164;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    font-family: 'Quicksand', sans-serif;
+    margin: 0 auto;
+    background-color: var(--light-background);
+}
+
 h1 {
-    color: brown;
+    color: var(--main-heading);
+    padding: 2rem 0;
+}
+
+.main-content {
+    margin: auto;
+    width: 75%;
+}
+
+.wodDate {
+    font-size: 1.5rem;
+    color: var(--main-heading);
+    margin-bottom: 1rem;
+}
+
+.actualWod {
+    line-height: 1.5;
+}
+
+input {
+    margin: .5rem 0;
 }

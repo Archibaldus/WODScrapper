@@ -24,7 +24,7 @@ function selectEntries (cb) {
     });   
 
     // SELECT all rows
-    let sql = 'SELECT * FROM comptrain';
+    let sql = 'SELECT * FROM comptrain ORDER BY rowid DESC';
     const listOfWODs = [];
 
     db.all(sql, [], (err, rows) => {
