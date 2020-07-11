@@ -6,7 +6,7 @@ const sqlite = require('sqlite3').verbose();
 
 const express = require('express');
 const app = express();
-const port = 8000;
+const port = 8080;
 
 
 const url = 'https://comptrain.co/wod/'
@@ -19,7 +19,7 @@ rp(url)
         htmlOP = ($('.col-md-6', html).html());
  
         htmlOPString = $('p', htmlOP).text();
-        console.log(htmlOPString.split("\n")); // work!
+        console.log(htmlOPString.split("\n")); 
 
         // todays Date
         function todaysDate() {
@@ -118,7 +118,17 @@ rp(url)
 
         // Start the server
         app.listen(port, () => console.log(`App listening at http://localhost:${port}`));
+
+
+        setTimeout(function () {
+            server.close();
+            console.log("Server succesfully closed");
+            // ^^^^^^^^^^^
+        }, 10000)
+
         })
+
+       
 
         // close Server automatically after Workout is written in the DB
 
